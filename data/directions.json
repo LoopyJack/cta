@@ -1,0 +1,1004 @@
+{
+  "1": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "2": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "3": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "4": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "5": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "6": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "7": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "8": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "9": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "11": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "12": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "15": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "18": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "19": [
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "20": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "21": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "22": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "24": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "26": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "28": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "29": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "30": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "31": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "34": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "35": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "36": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "37": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "39": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "43": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "44": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "47": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "48": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "49": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "50": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "51": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "52": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "53": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "54": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "55": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "56": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "57": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "59": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "60": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "62": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "63": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "65": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "66": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "67": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "68": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "70": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "71": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "72": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "73": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "74": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "75": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "76": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "77": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "78": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "79": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "80": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "81": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "82": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "84": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "85": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "86": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "87": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "88": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "90": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "91": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "92": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "93": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "94": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "95": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "96": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "97": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "100": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "103": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "106": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "108": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "111": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "112": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "115": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "119": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "120": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "121": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "124": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "125": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "126": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "132": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "134": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "135": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "136": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "143": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "146": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "147": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "148": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "151": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "152": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "155": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "156": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "157": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "165": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "169": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "171": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "172": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "192": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "201": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "205": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "206": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "8A": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "52A": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "54B": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "55N": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "62H": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "63W": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "81W": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "X9": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "J14": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "54A": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "55A": [
+    {
+      "dir": "Eastbound"
+    },
+    {
+      "dir": "Westbound"
+    }
+  ],
+  "53A": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "X49": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "49B": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "85A": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "X98": [
+    {
+      "dir": "Southbound"
+    }
+  ],
+  "111A": [
+    {
+      "dir": "Northbound"
+    },
+    {
+      "dir": "Southbound"
+    }
+  ]
+}

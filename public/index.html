@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+         /*height: 90%;*/
+        height: 600px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>CTA Bus Tracker</h3>
+    <div id="map"></div>
+    <div id="container">
+      <select id="rtselector" onchange="addMarkers(this.value)">Route</select>
+    </div>
+    <script>
+      var host = window.document.location.host.replace(/:.*/, '');
+      var ws = new WebSocket('ws://' + host + ':8088');
+      var map;
+      var markers = {};
+      var data;
+      var currentSelection;
+      var currentVehicle;
+      var loaded = false;
+      var patterns = {};
+      var polylines = [];
+      var vehicles;
+
+      var bluedot = 'https://storage.googleapis.com/support-kms-prod/SNP_2752068_en_v0';
+      var reddot = 'https://storage.googleapis.com/support-kms-prod/SNP_2752125_en_v0';
+
+      function initMap() {
+
+        var chicago = {lat: 41.8781, lng: -87.6998};
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: chicago
+        });
+        loaded = true;
+        update();
+      }
+
+
+      function setMapOnAll(map) {
+        for (m in markers) {
+          markers[m].setMap(map);
+        }
+      };
+
+
+
+      function setRouteSelector() {
+        var s = document.getElementById("rtselector");
+
+        /*remove previous options*/
+        for(var i = s.options.length ; i > 0 ; i--)
+        {
+          s.remove(i-1);
+        }
+
+        if (vehicles) {
+          let uni = {}
+          vehicles.forEach(function(ele){
+            uni[ele.rt + ' - ' + ele.des] = ele;
+          })
+
+          var i = 0;
+          var nonDuplicatedArray = [];
+          for(var item in uni) {
+              nonDuplicatedArray[i++] = uni[item];
+          }
+
+          nonDuplicatedArray.sort();
+
+          s.options.add(new Option('All', 'All'));
+          s.options.add(new Option('Northbound', 'Northbound'));
+          s.options.add(new Option('Southbound', 'Southbound'));
+          s.options.add(new Option('Eastbound', 'Eastbound'));
+          s.options.add(new Option('Westbound', 'Westbound'));
+          nonDuplicatedArray.forEach(function(v) {
+            s.options.add( new Option(v.rt + ' - ' + v.rtdir, v.rt + ' - ' + v.rtdir) )
+          });
+        }
+
+        if (currentSelection) {s.value = currentSelection };
+      }
+
+
+      function addMarkers(value) {
+        let checkFunc;
+        let rt;
+        let rtdir;
+
+        currentSelection = value;
+
+        if ( value == 'All' ) {
+          checkFunc = function(val) { return true; }
+        } else if (value == 'Northbound' || value == 'Southbound' || value == 'Eastbound' || value == 'Westbound') {
+          checkFunc = function(val) {
+            return (val.rtdir == value);
+          }
+        } else if (value) {
+          rt = value.split('-')[0].trim();
+          rtdir = value.split('-')[1].trim();
+          checkFunc = function(val) {
+            return (val.rt == rt && val.rtdir == rtdir);
+          }
+        } else {
+          return;
+        }
+        setMapOnAll(null);
+        markers = {};
+
+        let res = vehicles.filter(checkFunc);
+        res.forEach(function(ele) {
+         let m = {
+            position: {lat: parseFloat(ele.lat), lng: parseFloat(ele.lon)},
+            map: map,
+            icon: (ele.dly ? bluedot : reddot)
+          };
+
+          if (currentVehicle && ele.vid == currentVehicle.vid) {
+            m.icon = undefined;
+          }
+
+
+
+          let marker = new google.maps.Marker(m);
+
+          marker.addListener('click', function() {
+            /*reset last current marker */
+            if (currentVehicle) {
+              if (markers[currentVehicle.vid]) {
+                markers[currentVehicle.vid].setIcon(currentVehicle.dly ? bluedot : reddot);
+              } else {
+                currentVehicle = undefined;
+                clearPolylines();
+              }
+            }
+            currentVehicle = ele;
+            marker.setIcon(undefined);
+            new google.maps.InfoWindow({
+             content: vehicleInfoBoxText(ele)
+           }).open(map, marker);
+            ws.send(JSON.stringify({request: 'pattern',
+                                    vehicle: ele}));
+          });
+
+          markers[ele.vid] = marker;
+        });
+      }
+
+
+      function vehicleInfoBoxText(vehicle) {
+        let res = '<h1>Vehicle: ' + vehicle.vid +'</h1>' +
+                  '<p> Time: ' + vehicle.tmstmp + '</p>' +
+                  '<p> Route: ' + vehicle.rt + '</p>' +
+                  '<p> Direction: ' + vehicle.rtdir + '</p>' +
+                  '<p> Destination: ' + vehicle.des + '</p>' +
+                  '<p> Lat: ' + vehicle.lat + '</p>' +
+                  '<p> Long: ' + vehicle.lon + '</p>' +
+                  '<p> Heading: ' + vehicle.hdg + '</p>' +
+                  '<p> Distance Traveled: ' + vehicle.pdist + '</p>' +
+                  '<p> Delayed: ' + vehicle.dly + '</p>' +
+                  '<p> pid: ' + vehicle.pid + '</p>'
+        return res;
+      }
+
+      function drawPolylinesArray(pattern, vehicle) {
+
+        clearPolylines();
+
+        let pre = [];
+        let post = [];
+
+        /*construct before and after line points */
+        let i = 0;
+        do {
+          pre.push({lat: pattern[i].lat,
+                    lng: pattern[i].lon});
+          i++;
+        } while ((vehicle['pdist'] > pattern[i]['pdist'] || pattern[i]['pdist'] == 0)
+                && (i < pattern.length))
+
+        i--;
+        do {
+          post.push({lat: pattern[i].lat,
+                     lng: pattern[i].lon});
+          i++;
+        } while (i < pattern.length)
+
+        polylines.push(new google.maps.Polyline({
+          path: pre,
+          strokeColor: '#00ff00'
+        }));
+
+        polylines.push(new google.maps.Polyline({
+          path: post,
+          strokeColor: '#ff0000'
+        }));
+
+
+        polylines[0].setMap(map);
+        polylines[1].setMap(map);
+      }
+
+      function clearPolylines() {
+        polylines.forEach(function(ele){
+          ele.setMap(null);
+        });
+        polylines = [];
+      }
+
+      function update() {
+        if (loaded == true) {
+          setRouteSelector();
+          addMarkers(document.getElementById("rtselector").value);
+          if (currentVehicle) {
+            currentVehicle = vehicles.filter(function(ele){
+              return ele.vid == currentVehicle.vid;
+            })[0];
+            drawPolylinesArray(patterns[currentVehicle.pid]['pt'], currentVehicle);
+          }
+        }
+      }
+
+      ws.onmessage = function(event) {
+        data = JSON.parse(event.data);
+
+        if (data['pattern']) {
+          let pid = data['pattern']['pid'];
+          patterns[pid] = data['pattern'];
+          drawPolylinesArray(patterns[pid]['pt'], currentVehicle)
+        } else {
+          vehicles = JSON.parse(event.data);
+          update();
+        }
+      };
+
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaNze7affT9UkQG4foK-ytuj6LI8y4Tjo&callback=initMap">
+    </script>
+  </body>
+</html>
