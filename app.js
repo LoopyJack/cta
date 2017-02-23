@@ -9,11 +9,17 @@ var url = require('url');
 
 
 var port = 8088;
+
+app.get('/', function(req, res, next) {
+  console.log('Connection from:', req.connection.remoteAddress);
+  console.log(req.get('User-Agent'));
+  next();
+});
+
 app.use(express.static('./public'));
 var wss = new WebSocketServer({server:server});
 
 var clients = {};
-
 var currentData;
 
 process.on('uncaughtException', function (err) {
@@ -33,9 +39,7 @@ downloader.start();
 
 server.on('request', app);
 
-server.on('connection',function() {
-  console.log('http connection made...');
-});
+
 
 server.on('error', function(err) {
   console.log(err);
@@ -47,13 +51,14 @@ server.listen(port, function () {
 
 
 wss.on('connection', function connection(ws) {
-  console.log(ws.upgradeReq.headers);
+  // console.log(ws.upgradeReq.headers);
+  console.log('Websocket connected:', ws.upgradeReq.headers['sec-websocket-key']);
   clients[ws.upgradeReq.headers['sec-websocket-key']] = ws;
 
   ws.send(JSON.stringify(currentData));
 
   ws.on('close', function() {
-    console.log('Client Disconnected:', clients[ws.upgradeReq.headers['sec-websocket-key']]);
+    console.log('Websocket Disconnected:', ws.upgradeReq.headers['sec-websocket-key']);
     delete clients[ws.upgradeReq.headers['sec-websocket-key']];
   });
 
