@@ -11,7 +11,8 @@ var url = require('url');
 var port = 8088;
 
 app.get('/', function(req, res, next) {
-  console.log('Connection from:', req.connection.remoteAddress);
+  let ip = req.headers['x-forwarded-for'] ||  req.connection.remoteAddress
+  console.log('Connection from:', ip);
   console.log(req.get('User-Agent'));
   next();
 });

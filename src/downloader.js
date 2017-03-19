@@ -224,31 +224,51 @@ function Downloader() {
 
 
   /* write global structure to mongodb */
-  this.writeToMongo = function() {
+  this.writeToMongo = function(idx) {
+    let row_idx = idx || 0
     MongoClient.connect(mongourl, function(err, db) {
       assert.equal(null, err);
 
       var keys = Object.keys(self.results).sort();
       let row = {}
-      row[keys[0]] = self.results[keys[0]].row;
+      row[keys[row_idx]] = self.results[keys[row_idx]].row;
 
       db.collection('vehicles').insertOne(row, function(err, r) {
         assert.equal(null, err);
         assert.equal(1, r.insertedCount);
 
         db.close();
-        delete self.results[keys[0]];
-        console.log(new Date().toLocaleString(), 'written -', row[keys[0]].length, ' records - buffer size:', Object.keys(self.results).length);
+        delete self.results[keys[row_idx]];
+        console.log(new Date().toLocaleString(), 'written -', row[keys[row_idx]].length, ' records - buffer size:', Object.keys(self.results).length);
 
       });
     });
   };
 
 
+  this.writeOldRecords = function() {
+    let keys = Object.keys(self.results).sort().reverse();
+    let cutoff = new Date(new Date().getTime() - (1000 * 60 * 5));
+
+    keys.map(function (ele) {
+      if (cutoff > ele) {
+        console.log('Writing old record:', ele)
+        self.writeToMongo(ele);
+      }
+    });
+
+  }
+
+
   this.start = function () {
     self.downloadPatterns();
 
-    self.intervalID = setInterval(self.downloadVehicles, 60 * 1000);
+    self.intervalID = setInterval(self.executeOnInterval, 60 * 1000);
+  }
+
+  this.executeOnInterval = function() {
+    self.downloadVehicles();
+    self.writeOldRecords();
   }
 
   this.stop = function() {
