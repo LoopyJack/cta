@@ -17,7 +17,8 @@ app.get('/', function(req, res, next) {
   next();
 });
 
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
+app.use(express.static('./client/dist'));
 var wss = new WebSocketServer({server:server});
 
 var clients = {};
