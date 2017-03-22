@@ -74,7 +74,7 @@ wss.on('connection', function connection(ws) {
     if (msg['pid']) {
       if (downloader.patterns[msg['pid']]) {
         ws.send(JSON.stringify({
-          pattern: downloader.patterns[msg['pid']]
+          ptr: downloader.patterns[msg['pid']]
         }));
       }
     }
