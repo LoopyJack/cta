@@ -30,12 +30,11 @@ process.on('uncaughtException', function (err) {
 });
 
 downloader.on('latest', function(d){
-  currentData = d;
-  wss.broadcast(d);
+  currentData = {vehicles: d};
+  wss.broadcast(currentData);
 });
 
 
-// downloader.downloadDirections();
 downloader.start();
 
 
@@ -57,6 +56,7 @@ wss.on('connection', function connection(ws) {
   console.log('Websocket connected:', ws.upgradeReq.headers['sec-websocket-key']);
   clients[ws.upgradeReq.headers['sec-websocket-key']] = ws;
 
+  /* send latest data to new connetion */
   ws.send(JSON.stringify(currentData));
 
   ws.on('close', function() {
@@ -68,11 +68,14 @@ wss.on('connection', function connection(ws) {
     let msg = JSON.parse(message);
     let user = ws.upgradeReq.headers['sec-websocket-key'];
     console.log('msg from:', user);
-    console.log(msg);
-    if (msg.request == 'pattern') {
-      if (downloader.patterns[msg.vehicle.pid]) {
-        ws.send(JSON.stringify({pattern: downloader.patterns[msg.vehicle.pid],
-                                vehicle: msg.vehicle}));
+    console.log('msg:', msg);
+
+    /* request for pattern */
+    if (msg['pid']) {
+      if (downloader.patterns[msg['pid']]) {
+        ws.send(JSON.stringify({
+          pattern: downloader.patterns[msg['pid']]
+        }));
       }
     }
 

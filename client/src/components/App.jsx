@@ -14,18 +14,30 @@ class App extends React.Component {
 
     this.state = {
       vehicles: [],
-      routes: {All: {All: {checked: true}}}
+      routes: {All: {All: {checked: true}}},
+      patterns: {}
     }
     /* parse websocket message into state */
     ws.onmessage = (event) => {
       const msg = JSON.parse(event.data);
-      this.setState({
-        vehicles: msg,
-        routes: parseRoutes(msg, this.state.routes)});
 
-      console.log(new Date(), this.state.vehicles.length, ': vehicles received');
-    }
+      /* 'vehicle' msg parse */
+      if (msg['vehicles']) {
+        this.setState({
+          vehicles: msg,
+          routes: parseRoutes(msg, this.state.routes)
+        });
+        console.log(new Date(), this.state.vehicles.length, ': vehicles received');
 
+      /* 'pattern' msg parse */
+      } else if (msg['pid']) {
+        let newPatterns = this.state.patterns;
+        newPatterns[msg['pid']] = msg['pid'];
+        this.setState({
+          patterns: newPatterns
+        });
+      }
+    } //ws.onMessage
   }
 
   render() {

@@ -91,7 +91,10 @@ class Marker extends React.Component {
       icon: icon
     };
 
-    this.marker = new google.maps.Marker(pref);
+    // this.marker = new google.maps.Marker(pref);
+    this.marker = new SlidingMarker(pref);
+    this.marker.setDuration(50000);
+    this.marker.setEasing('linear');
 
     this.marker.addListener('click', () => {
       this.onClick();

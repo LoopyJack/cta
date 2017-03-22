@@ -16,7 +16,7 @@ class RouteSelector extends React.Component {
     // console.log('RouteSelector:render()...');
     let style = {
       float: 'left',
-      width: 170,
+      width: 130,
       height: '100%',
       overflowY: 'scroll'
     }

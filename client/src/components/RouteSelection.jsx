@@ -13,7 +13,8 @@ class RouteSelection extends React.Component {
   }
 
   render() {
-
+    let label = this.props.value == 'All' ?
+      this.props.value : this.props.value.slice(0, this.props.value.length-5);
     return (<div style={{width:'100%'}}>
         <label>
           <input
@@ -26,7 +27,7 @@ class RouteSelection extends React.Component {
             value   ={this.props.value}
             ref     ={this.props.value}
             checked ={this.props.checked}/>
-          {this.props.value}
+          {label}
         </label>
     </div>)
   }
