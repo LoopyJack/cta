@@ -1,5 +1,6 @@
 import React from 'react';
 import InfoWindow from './InfoWindow';
+import Pattern from './Pattern';
 
 var bluedot = 'https://storage.googleapis.com/support-kms-prod/SNP_2752068_en_v0';
 var reddot = 'https://storage.googleapis.com/support-kms-prod/SNP_2752125_en_v0';
@@ -17,6 +18,17 @@ class Marker extends React.Component {
 
   render() {
     // console.log('Marker:render()...');
+    let line = null;
+    if (this.state.active) {
+      line = <Pattern
+        map={this.props.map}
+        vehicle={this.props.vehicle}
+        pattern={this.props.pattern}
+        requestPattern={this.props.requestPattern}>
+      </Pattern>
+    }
+
+
     return (
       <div>
         <InfoWindow
@@ -26,6 +38,7 @@ class Marker extends React.Component {
           vehicle={this.props.vehicle}
           active={this.state.active}>
         </InfoWindow>
+        {line}
       </div>
     );
   }

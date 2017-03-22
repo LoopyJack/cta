@@ -32,6 +32,7 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
+  devtool: 'eval-source-map',
   devServer: {
     hot: true,
     contentBase: './dist'

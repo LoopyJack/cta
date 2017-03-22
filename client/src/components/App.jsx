@@ -11,6 +11,7 @@ class App extends React.Component {
     super(props);
 
     this.onRouteCheck = this.onRouteCheck.bind(this);
+    this.requestPattern = this.requestPattern.bind(this);
 
     this.state = {
       vehicles: [],
@@ -24,15 +25,15 @@ class App extends React.Component {
       /* 'vehicle' msg parse */
       if (msg['vehicles']) {
         this.setState({
-          vehicles: msg,
-          routes: parseRoutes(msg, this.state.routes)
+          vehicles: msg['vehicles'],
+          routes: parseRoutes(msg['vehicles'], this.state.routes)
         });
         console.log(new Date(), this.state.vehicles.length, ': vehicles received');
 
       /* 'pattern' msg parse */
-      } else if (msg['pid']) {
+    } else if (msg['ptr']) {
         let newPatterns = this.state.patterns;
-        newPatterns[msg['pid']] = msg['pid'];
+        newPatterns[msg['ptr']['pid']] = msg['ptr'];
         this.setState({
           patterns: newPatterns
         });
@@ -51,7 +52,9 @@ class App extends React.Component {
       <Marker
         key={v.vid}
         vehicle={v}
-        visible={this.state.routes[v.rt][v.rtdir]['checked']}>
+        pattern={this.state.patterns[v.pid]}
+        visible={this.state.routes[v.rt][v.rtdir]['checked']}
+        requestPattern={this.requestPattern}>
       </ Marker>
     );
     return (
@@ -67,9 +70,6 @@ class App extends React.Component {
     );
   }
 
-  componentDidMount() {
-
-  }
 
   onRouteCheck(e, rt, dir) {
     let newRoutes = this.state.routes;
@@ -102,11 +102,30 @@ class App extends React.Component {
     }
     this.setState({routes: newRoutes});
   }
+
+
+  requestPattern(pid) {
+    ws.send(JSON.stringify({
+      pid: pid
+    }));
+  }
+
+
 }
 
 module.exports = App;
 
 
+
+// var parsePatterns = function(vehicles, patterns) {
+//   let ret = {};
+//
+//   vehicles.map( function(v) {
+//     patterns[v.pid] ? ret[v.pid] = patterns[v.pid] : ret[v.pid] = {};
+//   });
+//
+//   return ret;
+// }
 
 var parseRoutes = function(vehicles, routes) {
   let ret = {All: {All:{checked: routes['All']['All']['checked']}}};
