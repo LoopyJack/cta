@@ -1,4 +1,6 @@
 *.old
 node_modules/
 /client/node_modules/
-/dist/bundle.js
+/client/dist/bundle.js
+/data/apikeys.js
+/data/patterns.json

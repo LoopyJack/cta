@@ -28,6 +28,11 @@ class InfoWindow extends React.Component {
         this.closeWindow();
       }
     }
+
+    if (prevProps.vehicle !== this.props.vehicle) {
+      let content = formatContent(this.props.vehicle);
+      this.infoWindow.setContent(content);
+    }
   }
 
   closeWindow() {

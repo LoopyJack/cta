@@ -15,8 +15,6 @@ const routes = require('../data/routes.json')['bustime-response']['routes'];
 const getVehicles_base   = 'http://www.ctabustracker.com/bustime/api/v2/getvehicles?key=';
 const getPatterns_base   = 'http://www.ctabustracker.com/bustime/api/v2/getpatterns?key=';
 const getDirections_base = 'http://www.ctabustracker.com/bustime/api/v2/getdirections?key=';
-// const apikey = 'zBF9iFTDHQt97gSnTSdsWX7x9'; //real one
-// const apikey = '5We56sVDWfbC3Myemsz57fEjN'; //ctabus@mailinator:password
 const apikeys = require('../data/apikeys.js');
 
 function Downloader() {
