@@ -1,4 +1,4 @@
-var fs = require('fs');
+// var fs = require('fs');
 var http = require('http');
 var bl = require('bl');
 var path = require('path');
@@ -11,7 +11,8 @@ var mongourl = 'mongodb://localhost:27017/cta';
 var assert = require('assert');
 
 
-const routes = require('../data/routes.json')['bustime-response']['routes'];
+// const routes = require('../data/routes.json')['bustime-response']['routes'];
+const getRoutes_base     = 'http://www.ctabustracker.com/bustime/api/v2/getroutes?key=';
 const getVehicles_base   = 'http://www.ctabustracker.com/bustime/api/v2/getvehicles?key=';
 const getPatterns_base   = 'http://www.ctabustracker.com/bustime/api/v2/getpatterns?key=';
 const getDirections_base = 'http://www.ctabustracker.com/bustime/api/v2/getdirections?key=';
@@ -25,18 +26,14 @@ function Downloader() {
   this.directions = {};
   this.intervalID = 0;
   this.cbcount = 0;
+  this.running = false;
+  this.routes = '';
+  this.rts = '';
 
-  /* split routes into 2d array with max length 10 */
-  this.rts = routes.reduce(function(acc, v, i){
-    if (i % 10 == 0) {
-      acc.push('');
-    }
-    acc[acc.length-1] = acc[acc.length-1].concat(v.rt).concat(',');
-    return acc;
-  },[])
+
 
   this.getRoutes = function(len) {
-    return routes.reduce(function(acc, v, i){
+    return self.routes.reduce(function(acc, v, i){
       if (i % len == 0) {
         acc.push('');
       }
@@ -60,6 +57,10 @@ function Downloader() {
   };
 
 
+  this.downloadRoutes = function() {
+    let str = getRoutes_base + apikey() + '&format=json';
+    self.httpGet(str, self.manageRoutes);
+  }
 
   /* Download all vehicles based on routes */
   this.downloadVehicles = function() {
@@ -102,6 +103,19 @@ function Downloader() {
     });
   }
 
+  this.manageRoutes = function(sub) {
+    self.routes = JSON.parse(sub.toString())['bustime-response']['routes'];;
+    /* split routes into 2d array with max length 10 */
+    self.rts = self.routes.reduce(function(acc, v, i){
+      if (i % 10 == 0) {
+        acc.push('');
+      }
+      acc[acc.length-1] = acc[acc.length-1].concat(v.rt).concat(',');
+      return acc;
+    },[]);
+
+    self.downloadPatterns();
+  }
 
   /* write patterns to file once all response are received */
   this.managePatterns = function(sub, count) {
@@ -125,8 +139,8 @@ function Downloader() {
     }
     console.log('Received pattern:', self.cbcount, '/', count);
     if (self.cbcount == self.getRoutes(1).length) {
-      let ws = fs.createWriteStream(path.join(__dirname, '../data/patterns.json'));
-      ws.write(JSON.stringify(self.patterns));
+      // let ws = fs.createWriteStream(path.join(__dirname, '../data/patterns.json'));
+      // ws.write(JSON.stringify(self.patterns));
 
       /* first call once patterns are downloaded */
       self.downloadVehicles();
@@ -155,13 +169,13 @@ function Downloader() {
 
     console.log('Received direction:', rt, self.cbcount, '/', count);
 
-    if (self.cbcount == self.getRoutes(1).length) {
-      fs.writeFile(path.join(__dirname, '../data/directions.json'),
-                   JSON.stringify(self.directions, null, 2), (err) => {
-        if (err) throw err;
-        console.log(Object.keys(self.directions).length, 'directions saved');
-      });
-    }
+    // if (self.cbcount == self.getRoutes(1).length) {
+    //   fs.writeFile(path.join(__dirname, '../data/directions.json'),
+    //                JSON.stringify(self.directions, null, 2), (err) => {
+    //     if (err) throw err;
+    //     console.log(Object.keys(self.directions).length, 'directions saved');
+    //   });
+    // }
 
   }
 
@@ -207,7 +221,7 @@ function Downloader() {
         self.results[timestamp].pushed++;
         // console.log(results[timestamp].pushed,'of', rts.length);
         if (self.results[timestamp].pushed == count) {
-          self.writeToMongo();
+          // self.writeToMongo();
           self.emit('latest', self.results[timestamp].row);
         }
       } else {
@@ -221,47 +235,44 @@ function Downloader() {
 
 
 
-  /* write global structure to mongodb */
-  this.writeToMongo = function(idx) {
-    let row_idx = idx || 0
-    MongoClient.connect(mongourl, function(err, db) {
-      assert.equal(null, err);
-
-      var keys = Object.keys(self.results).sort();
-      let row = {}
-      row[keys[row_idx]] = self.results[keys[row_idx]].row;
-
-      db.collection('vehicles').insertOne(row, function(err, r) {
-        assert.equal(null, err);
-        assert.equal(1, r.insertedCount);
-
-        db.close();
-        delete self.results[keys[row_idx]];
-        console.log(new Date().toLocaleString(), 'written -', row[keys[row_idx]].length, ' records - buffer size:', Object.keys(self.results).length);
-
-      });
-    });
-  };
-
-
-  this.writeOldRecords = function() {
-    let keys = Object.keys(self.results).sort().reverse();
-    let cutoff = new Date(new Date().getTime() - (1000 * 60 * 5));
-
-    keys.map(function (ele) {
-      if (cutoff > ele) {
-        console.log('Writing old record:', ele)
-        self.writeToMongo(ele);
-      }
-    });
-
-  }
+  // /* write global structure to mongodb */
+  // this.writeToMongo = function(idx) {
+  //   let row_idx = idx || 0
+  //   MongoClient.connect(mongourl, function(err, db) {
+  //     assert.equal(null, err);
+  //
+  //     var keys = Object.keys(self.results).sort();
+  //     let row = {}
+  //     row[keys[row_idx]] = self.results[keys[row_idx]].row;
+  //
+  //     db.collection('vehicles').insertOne(row, function(err, r) {
+  //       assert.equal(null, err);
+  //       assert.equal(1, r.insertedCount);
+  //
+  //       db.close();
+  //       delete self.results[keys[row_idx]];
+  //       console.log(new Date().toLocaleString(), 'written -', row[keys[row_idx]].length, ' records - buffer size:', Object.keys(self.results).length);
+  //
+  //     });
+  //   });
+  // };
 
 
-  this.start = function () {
-    self.downloadPatterns();
+  // this.writeOldRecords = function() {
+  //   let keys = Object.keys(self.results).sort().reverse();
+  //   let cutoff = new Date(new Date().getTime() - (1000 * 60 * 5));
+  //
+  //   keys.map(function (ele) {
+  //     if (cutoff > ele) {
+  //       console.log('Writing old record:', ele)
+  //       self.writeToMongo(ele);
+  //     }
+  //   });
+  // }
 
-    self.intervalID = setInterval(self.executeOnInterval, 60 * 1000);
+
+  this.init = function () {
+    self.downloadRoutes();
   }
 
   this.executeOnInterval = function() {
@@ -270,7 +281,17 @@ function Downloader() {
   }
 
   this.stop = function() {
+    console.log('Stopping Polling...');
     clearInterval(self.intervalID);
+    self.running = false;
+  }
+
+  this.start = function() {
+    if (!self.running) {
+      console.log('Starting Polling...');
+      self.intervalID = setInterval(self.executeOnInterval, 60 * 1000);
+      self.running = true;
+    }
   }
 
 

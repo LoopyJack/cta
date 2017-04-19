@@ -35,7 +35,9 @@ downloader.on('latest', function(d){
 });
 
 
-downloader.start();
+
+
+downloader.init();
 
 
 server.on('request', app);
@@ -55,6 +57,10 @@ wss.on('connection', function connection(ws) {
   // console.log(ws.upgradeReq.headers);
   console.log('Websocket connected:', ws.upgradeReq.headers['sec-websocket-key']);
   clients[ws.upgradeReq.headers['sec-websocket-key']] = ws;
+  console.log(Object.keys(clients).length, 'clients connected');
+  if (Object.keys(clients).length > 0) {
+    downloader.start();
+  }
 
   /* send latest data to new connetion */
   ws.send(JSON.stringify(currentData));
@@ -62,6 +68,10 @@ wss.on('connection', function connection(ws) {
   ws.on('close', function() {
     console.log('Websocket Disconnected:', ws.upgradeReq.headers['sec-websocket-key']);
     delete clients[ws.upgradeReq.headers['sec-websocket-key']];
+    console.log(Object.keys(clients).length, 'clients connected');
+    if (Object.keys(clients).length == 0) {
+      downloader.stop();
+    }
   });
 
   ws.on('message', function(message) {
