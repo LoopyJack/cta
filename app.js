@@ -8,9 +8,9 @@ var app = express();
 var url = require('url');
 
 
-var port = 8088;
+var port = 80;
 
-app.get('/', function(req, res, next) {
+app.get('/cta', function(req, res, next) {
   let ip = req.headers['x-forwarded-for'] ||  req.connection.remoteAddress
   console.log('Connection from:', ip);
   console.log(req.get('User-Agent'));
@@ -18,7 +18,7 @@ app.get('/', function(req, res, next) {
 });
 
 // app.use(express.static('./public'));
-app.use(express.static('./client/dist'));
+app.use('/cta', express.static('./client/dist'));
 var wss = new WebSocketServer({server:server});
 
 var clients = {};
