@@ -6,8 +6,8 @@ var path = require('path');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 
-var MongoClient = require('mongodb').MongoClient;
-var mongourl = 'mongodb://localhost:27017/cta';
+// var MongoClient = require('mongodb').MongoClient;
+// var mongourl = 'mongodb://localhost:27017/cta';
 var assert = require('assert');
 
 

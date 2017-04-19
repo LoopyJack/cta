@@ -3,8 +3,8 @@ import GMap from './Gmap';
 import Marker from './Marker';
 import RouteSelector from './RouteSelector';
 
-// var ws = new WebSocket('ws://205.178.62.72:8088');
-var ws = new WebSocket('ws://localhost:8088');
+// var ws = new WebSocket('ws://205.178.62.72/cta');
+var ws = new WebSocket('ws://localhost/cta');
 
 class App extends React.Component {
   constructor(props) {
