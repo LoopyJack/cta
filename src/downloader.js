@@ -277,7 +277,6 @@ function Downloader() {
 
   this.executeOnInterval = function() {
     self.downloadVehicles();
-    self.writeOldRecords();
   }
 
   this.stop = function() {
