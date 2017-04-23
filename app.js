@@ -8,7 +8,7 @@ var app = express();
 var url = require('url');
 
 
-var port = 80;
+var port = 8000;
 
 app.get('/cta', function(req, res, next) {
   let ip = req.headers['x-forwarded-for'] ||  req.connection.remoteAddress
@@ -55,7 +55,7 @@ server.listen(port, function () {
 
 wss.on('connection', function connection(ws) {
   // console.log(ws.upgradeReq.headers);
-  console.log('Websocket connected:', ws.upgradeReq.headers['sec-websocket-key']);
+  console.log(Date(), ' - Websocket connected:', ws.upgradeReq.headers['sec-websocket-key']);
   clients[ws.upgradeReq.headers['sec-websocket-key']] = ws;
   console.log(Object.keys(clients).length, 'clients connected');
   if (Object.keys(clients).length > 0) {
@@ -66,7 +66,7 @@ wss.on('connection', function connection(ws) {
   ws.send(JSON.stringify(currentData));
 
   ws.on('close', function() {
-    console.log('Websocket Disconnected:', ws.upgradeReq.headers['sec-websocket-key']);
+    console.log(Date(), ' - Websocket Disconnected:', ws.upgradeReq.headers['sec-websocket-key']);
     delete clients[ws.upgradeReq.headers['sec-websocket-key']];
     console.log(Object.keys(clients).length, 'clients connected');
     if (Object.keys(clients).length == 0) {

@@ -3,8 +3,8 @@ import GMap from './Gmap';
 import Marker from './Marker';
 import RouteSelector from './RouteSelector';
 
-// var ws = new WebSocket('ws://205.178.62.72/cta');
-var ws = new WebSocket('ws://localhost/cta');
+var ws = new WebSocket('ws://205.178.62.72:8000/cta');
+// var ws = new WebSocket('ws://localhost/cta');
 
 class App extends React.Component {
   constructor(props) {
@@ -58,17 +58,15 @@ class App extends React.Component {
       </ Marker>
     );
     return (
-      <div>
-        <h1>CTA Bus Tracker</h1>
-        <div style={style}>
-          <div style={{left: 0, right: 0}}>
-            <p>Last Update: {new Date().toLocaleString()}  Total Buses: {this.state.vehicles.length}</p>
-          </div>
-          <RouteSelector routes={this.state.routes} onCheck={this.onRouteCheck}/>
-          <GMap>
-            {markers}
-          </ GMap>
+      <div style={style}>
+        <h2>CTA Bus Tracker</h2>
+        <div style={{left: 0, right: 0}}>
+          <p>Last Update: {new Date().toLocaleString()}  Total Buses: {this.state.vehicles.length}</p>
         </div>
+        <RouteSelector routes={this.state.routes} onCheck={this.onRouteCheck}/>
+        <GMap>
+          {markers}
+        </ GMap>
       </div>
     );
   }
