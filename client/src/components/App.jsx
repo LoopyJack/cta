@@ -58,14 +58,17 @@ class App extends React.Component {
       </ Marker>
     );
     return (
-      <div style={style}>
-        <div style={{left: 0, right: 0}}>
-          <p>Last Update: {new Date().toLocaleString()}  Total Buses: {this.state.vehicles.length}</p>
+      <div>
+        <h1>CTA Bus Tracker</h1>
+        <div style={style}>
+          <div style={{left: 0, right: 0}}>
+            <p>Last Update: {new Date().toLocaleString()}  Total Buses: {this.state.vehicles.length}</p>
+          </div>
+          <RouteSelector routes={this.state.routes} onCheck={this.onRouteCheck}/>
+          <GMap>
+            {markers}
+          </ GMap>
         </div>
-        <RouteSelector routes={this.state.routes} onCheck={this.onRouteCheck}/>
-        <GMap>
-          {markers}
-        </ GMap>
       </div>
     );
   }
