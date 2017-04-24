@@ -288,6 +288,7 @@ function Downloader() {
   this.start = function() {
     if (!self.running) {
       console.log('Starting Polling...');
+      self.downloadVehicles();
       self.intervalID = setInterval(self.executeOnInterval, 60 * 1000);
       self.running = true;
     }

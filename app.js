@@ -62,8 +62,6 @@ wss.on('connection', function connection(ws) {
     downloader.start();
   }
 
-  /* send latest data to new connetion */
-  ws.send(JSON.stringify(currentData));
 
   ws.on('close', function() {
     console.log(Date(), ' - Websocket Disconnected:', ws.upgradeReq.headers['sec-websocket-key']);
